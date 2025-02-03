@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/header/Navbar";
 import axios from "axios";
-import html2canvas from 'html2canvas';
+import html2canvas from "html2canvas";
 import SingleSelectionChecklist from "../../components/singleSelectionCheckList/SingleSelectionCheckListU";
 import rightImage1 from "../../assets/UdharReceiptTemplate.jpg";
 
@@ -13,11 +13,14 @@ const UdharChallan = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    }).split('/').join('-');
+    return date
+      .toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+      .split("/")
+      .join("-");
   };
 
   const [userData, setUserData] = useState([]);
@@ -113,22 +116,52 @@ const UdharChallan = () => {
               <img src="${rightImage1}" alt="Watermark">
             </div>
             <div>
-              <p style="position: absolute; top: 260px; left: 165px; font-weight: bold; font-size: 1rem;">${formData.receiptNumber}</p>
-              <p style="position: absolute; top: 260px; left: 570px; font-weight: bold; font-size: 1rem;">${formatDate(formData.date)}</p>
+              <p style="position: absolute; top: 260px; left: 165px; font-weight: bold; font-size: 1rem;">${
+                formData.receiptNumber
+              }</p>
+              <p style="position: absolute; top: 260px; left: 570px; font-weight: bold; font-size: 1rem;">${formatDate(
+                formData.date
+              )}</p>
             </div>
             <div class="user-details">
-              <p style="position: absolute; top: 312px; left: 615px; font-weight: bold; font-size: 1.2rem;">${formData.userId}</p>
-              <p style="position: absolute; top: 312px; left: 145px; font-weight: bold; font-size: 1.2rem;">${formData.name}</p>
-              <p style="position: absolute; top: 342px; left: 145px; font-weight: bold; font-size: 1.2rem;">${formData.site}</p>
-              <p style="position: absolute; top: 400px; left: 145px; font-weight: bold; font-size: 1.2rem;">${formData.phone}</p>
+              <p style="position: absolute; top: 312px; left: 615px; font-weight: bold; font-size: 1.2rem;">${
+                formData.userId
+              }</p>
+              <p style="position: absolute; top: 312px; left: 145px; font-weight: bold; font-size: 1.2rem;">${
+                formData.name
+              }</p>
+              <p style="position: absolute; top: 342px; left: 145px; font-weight: bold; font-size: 1.2rem;">${
+                formData.site
+              }</p>
+              <p style="position: absolute; top: 400px; left: 145px; font-weight: bold; font-size: 1.2rem;">${
+                formData.phone
+              }</p>
             </div>
-            ${formData.sizes.map((size, index) => `
-              <p style="position: absolute; top: ${490 + (index * 40)}px; left: 240px; font-weight: bold; font-size: 1.2rem; color: black;">${size.total || "&nbsp;"}</p>
-              <p style="position: absolute; top: ${490 + (index * 40)}px; left: 400px; font-weight: bold; font-size: 1.2rem; color: black;">${size.mark || "&nbsp;"}</p>
-            `).join('')}
-            <p style="position: absolute; top: 443px; left: 390px; font-weight: bold; font-size: 1.4rem; color: white;">${formData.selectedMarkOption}</p>
-            <p style="position: absolute; top: 845px; left: 240px; font-weight: bold; font-size: 1.2rem;">${formData.grandTotal}</p>
-            <p style="position: absolute; top: 982px; left: 445px; font-weight: bold; font-size: 1.2rem;">${formData.grandTotal}</p>
+            ${formData.sizes
+              .map(
+                (size, index) => `
+              <p style="position: absolute; top: ${
+                490 + index * 40
+              }px; left: 240px; font-weight: bold; font-size: 1.2rem; color: black;">${
+                  size.pisces || "&nbsp;"
+                }</p>
+              <p style="position: absolute; top: ${
+                490 + index * 40
+              }px; left: 400px; font-weight: bold; font-size: 1.2rem; color: black;">${
+                  size.mark || "&nbsp;"
+                }</p>
+            `
+              )
+              .join("")}
+            <p style="position: absolute; top: 443px; left: 390px; font-weight: bold; font-size: 1.4rem; color: white;">${
+              formData.selectedMarkOption
+            }</p>
+            <p style="position: absolute; top: 845px; left: 240px; font-weight: bold; font-size: 1.2rem;">${
+              formData.grandTotal
+            }</p>
+            <p style="position: absolute; top: 982px; left: 445px; font-weight: bold; font-size: 1.2rem;">${
+              formData.grandTotal
+            }</p>
           </div>
         </body>
       </html>
@@ -137,30 +170,32 @@ const UdharChallan = () => {
 
   const generateJPEG = async () => {
     try {
-      const container = document.createElement('div');
+      const container = document.createElement("div");
       container.innerHTML = generateReceiptContent();
       document.body.appendChild(container);
-      
+
       const canvas = await html2canvas(container, {
         scale: 2,
         useCORS: false,
         windowWidth: 800,
         windowHeight: 200,
         logging: false,
-        backgroundColor: '#ffffff'
+        backgroundColor: "#ffffff",
       });
 
-      const jpegUrl = canvas.toDataURL('image/jpeg', 1.0);
-      const jpegLink = document.createElement('a');
-      jpegLink.download = `${formData.receiptNumber}_${formatDate(formData.date)}.jpg`;
+      const jpegUrl = canvas.toDataURL("image/jpeg", 1.0);
+      const jpegLink = document.createElement("a");
+      jpegLink.download = `${formData.receiptNumber}_${formatDate(
+        formData.date
+      )}.jpg`;
       jpegLink.href = jpegUrl;
       jpegLink.click();
 
       document.body.removeChild(container);
       return true;
     } catch (error) {
-      console.error('JPEG Generation Error:', error);
-      throw new Error('Error generating JPEG. Please try again.');
+      console.error("JPEG Generation Error:", error);
+      throw new Error("Error generating JPEG. Please try again.");
     }
   };
 
@@ -171,13 +206,14 @@ const UdharChallan = () => {
         url: `https://nilkanth-back.onrender.com${url}`,
         data,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       return response.data;
     } catch (error) {
       console.error(`API Error (${url}):`, error);
-      const errorMessage = error.response?.data?.message || error.message || 'An error occurred';
+      const errorMessage =
+        error.response?.data?.message || error.message || "An error occurred";
       throw new Error(errorMessage);
     }
   };
@@ -186,8 +222,8 @@ const UdharChallan = () => {
     const fetchInitialData = async () => {
       try {
         const [users, items] = await Promise.all([
-          apiCall('get', '/users'),
-          apiCall('get', '/return-items')
+          apiCall("get", "/users"),
+          apiCall("get", "/return-items"),
         ]);
         setUserData(users);
         setReturnItems(items);
@@ -208,12 +244,12 @@ const UdharChallan = () => {
         ? value
         : prefix + value.replace(prefix, "");
 
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         [name]: newValue,
       }));
     } else {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         [name]: value,
       }));
@@ -221,11 +257,12 @@ const UdharChallan = () => {
 
     if (name === "userId") {
       const filteredSuggestions = userData
-        .filter(user => 
-          user.userId.toLowerCase().includes(value.toLowerCase()) ||
-          user.name.toLowerCase().includes(value.toLowerCase())
+        .filter(
+          (user) =>
+            user.userId.toLowerCase().includes(value.toLowerCase()) ||
+            user.name.toLowerCase().includes(value.toLowerCase())
         )
-        .map(user => ({
+        .map((user) => ({
           ...user,
           displayText: `${user.userId} - ${user.name}`,
         }))
@@ -239,12 +276,12 @@ const UdharChallan = () => {
     const { name, value } = e.target;
     if (name === "phone") {
       const sanitizedValue = value.replace(/\D/g, "").slice(0, 10);
-      setNewUser(prev => ({
+      setNewUser((prev) => ({
         ...prev,
         [name]: sanitizedValue,
       }));
     } else {
-      setNewUser(prev => ({
+      setNewUser((prev) => ({
         ...prev,
         [name]: value,
       }));
@@ -258,8 +295,8 @@ const UdharChallan = () => {
     }
 
     try {
-      const response = await apiCall('post', '/users', newUser);
-      setUserData(prev => [...prev, response]);
+      const response = await apiCall("post", "/users", newUser);
+      setUserData((prev) => [...prev, response]);
       setShowNewUserModal(false);
       setNewUser({
         userId: "",
@@ -274,7 +311,7 @@ const UdharChallan = () => {
   };
 
   const handleSuggestionSelect = (user) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       userId: user.userId,
       name: user.name,
@@ -286,21 +323,24 @@ const UdharChallan = () => {
 
   const handleSizeInputChange = (index, e) => {
     const { name, value } = e.target;
-    const numericValue = value.replace(/[^0-9]/g, '');
+    const numericValue = value.replace(/[^0-9]/g, "");
 
-    setFormData(prev => {
+    setFormData((prev) => {
       const updatedSizes = [...prev.sizes];
       updatedSizes[index] = {
         ...updatedSizes[index],
         [name]: numericValue,
       };
 
-      const total = (parseInt(updatedSizes[index].pisces) || 0) +
-                   (parseInt(updatedSizes[index].mark) || 0);
+      const total =
+        (parseInt(updatedSizes[index].pisces) || 0) +
+        (parseInt(updatedSizes[index].mark) || 0);
       updatedSizes[index].total = total.toString();
 
-      const grandTotal = updatedSizes.reduce((acc, curr) =>
-        acc + (parseInt(curr.pisces) || 0) + (parseInt(curr.mark) || 0), 0
+      const grandTotal = updatedSizes.reduce(
+        (acc, curr) =>
+          acc + (parseInt(curr.pisces) || 0) + (parseInt(curr.mark) || 0),
+        0
       );
 
       return {
@@ -330,7 +370,7 @@ const UdharChallan = () => {
         name: formData.name,
         site: formData.site || "",
         phone: formData.phone || "",
-        sizes: formData.sizes.map(size => ({
+        sizes: formData.sizes.map((size) => ({
           size: size.size,
           pisces: parseInt(size.pisces) || 0,
           mark: parseInt(size.mark) || 0,
@@ -345,23 +385,25 @@ const UdharChallan = () => {
         },
       };
 
-      const response = await apiCall('post', '/return-items', submissionData);
+      const response = await apiCall("post", "/return-items", submissionData);
       await generateJPEG();
-      
-      alert("Return Item Submitted Successfully! JPEG file has been generated.");
 
-      setFormData(prev => ({
+      alert(
+        "Return Item Submitted Successfully! JPEG file has been generated."
+      );
+
+      setFormData((prev) => ({
         ...prev,
         receiptNumber: `RU-`,
         userId: "",
         name: "",
         site: "",
         phone: "",
-        sizes: prev.sizes.map(size => ({
+        sizes: prev.sizes.map((size) => ({
           ...size,
           pisces: "",
           mark: "",
-          total: ""
+          total: "",
         })),
         total: "",
         grandTotal: "",
@@ -369,7 +411,7 @@ const UdharChallan = () => {
         selectedMarkOption: "",
       }));
 
-      setReturnItems(prev => [response, ...prev]);
+      setReturnItems((prev) => [response, ...prev]);
     } catch (error) {
       setError(error.message);
       alert(error.message);
@@ -395,7 +437,9 @@ const UdharChallan = () => {
           {/* Header Section - Reduced padding */}
           <div className="p-3 bg-gradient-to-r from-red-600 to-red-700">
             <div className="flex flex-col items-center gap-2">
-              <h1 className="text-xl font-bold tracking-wide text-white">ઉધાર ચલણ</h1>
+              <h1 className="text-xl font-bold tracking-wide text-white">
+                ઉધાર ચલણ
+              </h1>
               <button
                 type="button"
                 onClick={() => setShowNewUserModal(true)}
@@ -410,7 +454,9 @@ const UdharChallan = () => {
           <div className="p-3 space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
-                <label className="block mb-1 text-sm font-semibold text-gray-700">ચલણ નંબર:</label>
+                <label className="block mb-1 text-sm font-semibold text-gray-700">
+                  ચલણ નંબર:
+                </label>
                 <input
                   type="text"
                   name="receiptNumber"
@@ -422,7 +468,9 @@ const UdharChallan = () => {
               </div>
 
               <div className="relative">
-                <label className="block mb-1 text-sm font-semibold text-gray-700">તારીખ:</label>
+                <label className="block mb-1 text-sm font-semibold text-gray-700">
+                  તારીખ:
+                </label>
                 <input
                   type="date"
                   name="date"
@@ -435,7 +483,9 @@ const UdharChallan = () => {
             {/* User Details Section - Compact spacing */}
             <div className="space-y-3">
               <div className="relative">
-                <label className="block mb-1 text-sm font-semibold text-gray-700">ID:</label>
+                <label className="block mb-1 text-sm font-semibold text-gray-700">
+                  ID:
+                </label>
                 <input
                   type="text"
                   name="userId"
@@ -460,36 +510,48 @@ const UdharChallan = () => {
                 )}
               </div>
 
-              {['name', 'site', 'phone'].map((field) => (
+              {["name", "site", "phone"].map((field) => (
                 <div key={field} className="relative">
                   <label className="block mb-1 text-sm font-semibold text-gray-700">
-                    {field === 'name' ? 'નામ:' : field === 'site' ? 'સાઇડ:' : 'મોબાઇલ:'}
+                    {field === "name"
+                      ? "નામ:"
+                      : field === "site"
+                      ? "સાઇડ:"
+                      : "મોબાઇલ:"}
                   </label>
                   <input
-                    type={field === 'phone' ? 'tel' : 'text'}
+                    type={field === "phone" ? "tel" : "text"}
                     name={field}
                     value={formData[field]}
                     onChange={handleInputChange}
                     className="w-full px-2 py-1.5 rounded-lg border border-red-200 focus:border-red-500 focus:ring-1 focus:ring-red-200 transition-all duration-200 text-sm"
-                    placeholder={`Enter ${field.charAt(0).toUpperCase() + field.slice(1)}`}
-                    required={field === 'name'}
-                    inputMode={field === 'phone' ? 'numeric' : 'text'}
-                    pattern={field === 'phone' ? '[0-9]*' : undefined}
+                    placeholder={`Enter ${
+                      field.charAt(0).toUpperCase() + field.slice(1)
+                    }`}
+                    required={field === "name"}
+                    inputMode={field === "phone" ? "numeric" : "text"}
+                    pattern={field === "phone" ? "[0-9]*" : undefined}
                   />
                 </div>
               ))}
             </div>
           </div>
 
-{/* Table Section - Compact design */}
-<div className="p-3 bg-red-50">
+          {/* Table Section - Compact design */}
+          <div className="p-3 bg-red-50">
             <div className="overflow-x-auto rounded-lg shadow-lg">
               <table className="min-w-full bg-white">
                 <thead>
                   <tr className="text-white bg-gradient-to-r from-red-600 to-red-700">
-                    <th className="px-2 py-2 text-sm text-left text-white">સાઈઝ</th>
-                    <th className="px-2 py-2 text-sm text-center text-white">કુલ</th>
-                    <th className="px-2 py-2 text-sm text-center text-white">પ્લેટનંગ</th>
+                    <th className="px-2 py-2 text-sm text-left text-white">
+                      સાઈઝ
+                    </th>
+                    <th className="px-2 py-2 text-sm text-center text-white">
+                      કુલ
+                    </th>
+                    <th className="px-2 py-2 text-sm text-center text-white">
+                      પ્લેટનંગ
+                    </th>
                     <th className="px-2 py-2 text-center">
                       <SingleSelectionChecklist
                         formData={formData}
@@ -500,10 +562,16 @@ const UdharChallan = () => {
                 </thead>
                 <tbody>
                   {formData.sizes.map((sizeItem, index) => (
-                    <tr key={index} className="transition-colors duration-200 border-b border-red-100 hover:bg-red-50">
-                      <td className="px-2 py-2 text-sm text-gray-800">{sizeItem.size}</td>
+                    <tr
+                      key={index}
+                      className="transition-colors duration-200 border-b border-red-100 hover:bg-red-50"
+                    >
+                      <td className="px-2 py-2 text-sm text-gray-800">
+                        {sizeItem.size}
+                      </td>
                       <td className="px-2 py-2 text-sm font-semibold text-center text-red-600">
-                        {(parseInt(sizeItem.pisces) || 0) + (parseInt(sizeItem.mark) || 0)}
+                        {(parseInt(sizeItem.pisces) || 0) +
+                          (parseInt(sizeItem.mark) || 0)}
                       </td>
                       <td className="px-2 py-2">
                         <input
@@ -532,15 +600,18 @@ const UdharChallan = () => {
                     </tr>
                   ))}
                   <tr className="bg-red-50">
-                    <td className="px-2 py-2 text-sm font-bold text-red-700">કુલ નંગ</td>
-                    <td className="px-2 py-2 text-sm font-bold text-center text-red-700">{formData.grandTotal}</td>
+                    <td className="px-2 py-2 text-sm font-bold text-red-700">
+                      કુલ નંગ
+                    </td>
+                    <td className="px-2 py-2 text-sm font-bold text-center text-red-700">
+                      {formData.grandTotal}
+                    </td>
                     <td colSpan="2"></td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-
 
           {/* Notes Section - Reduced padding */}
           <div className="p-3">
@@ -570,22 +641,21 @@ const UdharChallan = () => {
         {showNewUserModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black bg-opacity-50">
             <div className="w-full max-w-md overflow-hidden bg-white rounded-lg shadow-2xl">
-              
               <div className="p-4 space-y-3">
-                {['userId', 'name', 'site', 'phone'].map((field) => (
+                {["userId", "name", "site", "phone"].map((field) => (
                   <div key={field}>
                     <label className="block mb-1 text-sm font-semibold text-gray-700">
                       {field.charAt(0).toUpperCase() + field.slice(1)}:
                     </label>
                     <input
-                      type={field === 'phone' ? 'tel' : 'text'}
+                      type={field === "phone" ? "tel" : "text"}
                       name={field}
                       value={newUser[field]}
                       onChange={handleNewUserChange}
                       className="w-full px-3 py-1.5 rounded-lg border border-red-200 focus:border-red-500 focus:ring-1 focus:ring-red-200 transition-all duration-200 text-sm"
-                      required={field === 'userId' || field === 'name'}
-                      inputMode={field === 'phone' ? 'numeric' : 'text'}
-                      pattern={field === 'phone' ? '[0-9]*' : undefined}
+                      required={field === "userId" || field === "name"}
+                      inputMode={field === "phone" ? "numeric" : "text"}
+                      pattern={field === "phone" ? "[0-9]*" : undefined}
                     />
                   </div>
                 ))}
