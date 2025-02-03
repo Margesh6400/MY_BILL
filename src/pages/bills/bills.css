@@ -1,0 +1,539 @@
+.pdf-button {
+  padding: 0.5rem 1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.pdf-button:hover {
+  background-color: #1d4ed8;
+}
+
+.bill-history {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.bill-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.bill-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.bill-number {
+  font-weight: 600;
+}
+
+.bill-status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-partially_paid {
+  background-color: #e0f2fe;
+  color: #075985;
+}
+
+.status-paid {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.payment-history {
+  margin-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.payment-method {
+  text-transform: capitalize;
+}
+
+.view-history-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #4b5563;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.view-history-btn:hover {
+  background-color: #374151;
+}
+
+.billing-system {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 2rem;
+}
+
+.users-table,
+.billing-details {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.rate-settings {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.rate-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rate-field label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.rate-input,
+.date-input,
+.amount-input {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  width: 120px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+  font-weight: 600;
+  color: #374151;
+}
+
+tr:hover {
+  background-color: #f9fafb;
+}
+
+tr.selected {
+  background-color: #e5edff;
+}
+
+.text-red {
+  color: #dc2626;
+}
+
+.text-green {
+  color: #059669;
+}
+
+.days-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.calendar-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #6b7280;
+}
+
+.payment-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+}
+
+.payment-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.payment-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 2rem;
+}
+
+.payment-methods label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.payment-summary {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #f1f5f9;
+  border-radius: 0.25rem;
+}
+
+.payment-summary p {
+  margin: 0.5rem 0;
+}
+
+.submit-payment-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.submit-payment-btn:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.submit-payment-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.billing-system {
+  padding: 1rem;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: #f0fdfa;
+  min-height: 100vh;
+  padding-top: 5rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.page-title {
+  color: #134e4a;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
+}
+
+.users-table th {
+  background-color: #0d9488;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 500;
+}
+
+.users-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.users-table tr:hover {
+  background-color: #f0fdfa;
+  cursor: pointer;
+}
+
+.users-table tr.selected {
+  background-color: #ccfbf1;
+}
+
+.billing-details {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.rate-settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  background: #f0fdfa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  color: #134e4a;
+  font-weight: 500;
+}
+
+.input-group input {
+  padding: 0.75rem;
+  border: 1px solid #0d9488;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
+}
+
+.billing-table {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.billing-table th {
+  background-color: #0d9488;
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.billing-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.payment-section {
+  background: #f0fdfa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #134e4a;
+  cursor: pointer;
+}
+
+.payment-input {
+  margin-bottom: 1.5rem;
+}
+
+.payment-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.payment-summary p {
+  color: #134e4a;
+  font-weight: 500;
+}
+
+.payment-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.submit-button,
+.history-button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.submit-button {
+  background: #0d9488;
+  color: white;
+}
+
+.submit-button:hover {
+  background: #0f766e;
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.history-button {
+  background: #134e4a;
+  color: white;
+}
+
+.history-button:hover {
+  background: #0f766e;
+  transform: translateY(-1px);
+}
+
+.text-red {
+  color: #ef4444;
+}
+
+.text-green {
+  color: #10b981;
+}
+
+.bill-history {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.bill-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #134e4a;
+  cursor: pointer;
+}
+
+.bill-item {
+  background: #f0fdfa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.bill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.bill-number {
+  font-weight: 600;
+  color: #134e4a;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
